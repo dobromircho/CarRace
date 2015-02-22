@@ -21,7 +21,8 @@ public class CarConrtrol_2D : MonoBehaviour
         float speedFactor = rigidbody.velocity.magnitude /20;
         rigidbody.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * speed2D, rigidbody.velocity.y);
         audio.pitch = Mathf.Lerp(0.5f, 2, speedFactor);
-	}
+    	
+    }
 
     
 
