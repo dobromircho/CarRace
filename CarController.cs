@@ -45,7 +45,8 @@ public class CarController : MonoBehaviour
     public int gear;
     public ParticleSystem carSmoke;
     float currSmokeSpeed;
-    float currSmokeRate ;
+    float currSmokeRate;
+    
     void Start()
     {
         rigidbody.centerOfMass += new Vector3(0f, -yGravity, zGravity);
@@ -56,6 +57,7 @@ public class CarController : MonoBehaviour
         speedArrow = GameObject.FindGameObjectWithTag("SpeedArrow").GetComponent<Image>();
         rpmArrow = GameObject.FindGameObjectWithTag("RpmArrow").GetComponent<Image>();
     }
+    
     void SetValues()
     {
         myForwardFric = RearLeftWheel.forwardFriction.stiffness;
@@ -63,7 +65,8 @@ public class CarController : MonoBehaviour
         slipForwardFric = 0.1f;
         slipSidewayFric = 0.07f;
     }
-    void  SetSlip(float currentForwardFric, float currentSidewayFric )
+    
+    void SetSlip(float currentForwardFric, float currentSidewayFric )
     {
         WheelFrictionCurve RR_W = RearRightWheel.forwardFriction;
         WheelFrictionCurve RL_W = RearLeftWheel.sidewaysFriction;
@@ -75,8 +78,8 @@ public class CarController : MonoBehaviour
         RearLeftWheel.forwardFriction = RR_W;
         RearRightWheel.sidewaysFriction = RL_W;
         RearLeftWheel.sidewaysFriction = RL_W;
-        
     }
+    
     void Update()
     {
         if (networkView.isMine)
@@ -94,7 +97,6 @@ public class CarController : MonoBehaviour
             if (Input.GetAxis("Vertical") < 0)
             {
                 backLight[0].intensity = 5f;
-
                 backStops.color = Color.white;
             }
             if (stoped)
@@ -105,7 +107,6 @@ public class CarController : MonoBehaviour
             if (Input.GetKey(KeyCode.Z))
             {
                 EngineTorque = 100f;
-                 
             }
         }
        
@@ -172,8 +173,6 @@ public class CarController : MonoBehaviour
             speedArrow.transform.rotation = spArrRot;
             rpmArrow.transform.rotation = rpmArrRot;
        }
-        
-        
     }
 
     void ShiftGears()
@@ -217,8 +216,6 @@ public class CarController : MonoBehaviour
     {
         if (networkView.isMine)
         {
-
-
             if (Input.GetButton("Jump"))
             {
                 stoped = true;
@@ -233,7 +230,6 @@ public class CarController : MonoBehaviour
                 FrontRightWheel.brakeTorque = maxBreakTorque;
                 SetSlip(slipForwardFric, slipSidewayFric);
             }
-
             else
             {
                 SetSlip(myForwardFric, mySidewayFric);
